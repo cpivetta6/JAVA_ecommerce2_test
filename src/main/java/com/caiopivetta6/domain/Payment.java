@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.caiopivetta6.domain.enums.OrderStatus;
+
 public class Payment implements Serializable {
 
 	
@@ -12,19 +14,29 @@ public class Payment implements Serializable {
 	private Instant moment;
 	
 	private Order order;
+	private Integer orderStatus;
 	
 	public Payment() {
 		
 	}
 	
-	public Payment(Integer id, Instant moment) {
+	public Payment(Integer id, Instant moment, OrderStatus orderStatus) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		this.orderStatus = orderStatus.getCod();
+	}
+	
+	
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.toEnum(orderStatus);
 	}
 
-	
-	
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus.getCod();
+	}
+
 	public Order getOrder() {
 		return order;
 	}

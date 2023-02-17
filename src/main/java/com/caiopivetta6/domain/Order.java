@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
-
-import com.caiopivetta6.domain.enums.OrderStatus;
+import java.util.Set;
 
 public class Order implements Serializable{
 
@@ -14,26 +13,34 @@ public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Instant moment;
-	private OrderStatus orderStatus;
 	
 	private List<Payment> payments;
 	private Client client;
+	
+	private Set<OrderItem> orderItems;
 	
 	
 	public Order () {
 		
 	}
 
-	public Order(Integer id, Instant moment, OrderStatus orderStatus) {
+	public Order(Integer id, Instant moment) {
 		super();
 		this.id = id;
 		this.moment = moment;
-		this.orderStatus = orderStatus;
 	}
 	
 	
 	
 	
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
 	public Client getClient() {
 		return client;
 	}
@@ -66,13 +73,6 @@ public class Order implements Serializable{
 		this.moment = moment;
 	}
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
 
 	@Override
 	public int hashCode() {

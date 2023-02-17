@@ -1,19 +1,33 @@
 package com.caiopivetta6.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Client_tb")
 public class Client implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String email;
 	
 	private String phone;
 	
-	private Address address;
+	@OneToMany(mappedBy = "client")
+	private List<Address> address;
 	
 	public Client() {
 		
@@ -30,12 +44,13 @@ public class Client implements Serializable{
 
 	
 
-	public Address getAddress() {
+
+	public List<Address> getAddress() {
 		return address;
 	}
 
 
-	public void setAddress(Address address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 

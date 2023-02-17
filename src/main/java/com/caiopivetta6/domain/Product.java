@@ -3,6 +3,7 @@ package com.caiopivetta6.domain;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Product implements Serializable {
 
@@ -12,6 +13,8 @@ public class Product implements Serializable {
 	private String name;
 	private String description;
 	private Double price;
+	
+	private Set<OrderItem> orderItems;
 	
 	private List<Category> categories;
 
@@ -23,6 +26,20 @@ public class Product implements Serializable {
 		this.price = price;
 		this.categories = categories;
 	}
+	
+	
+
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+
+
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+
 
 	public Integer getId() {
 		return id;
