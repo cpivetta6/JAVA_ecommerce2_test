@@ -1,6 +1,7 @@
 package com.caiopivetta6.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class Client implements Serializable{
 	private String phone;
 	
 	@OneToMany(mappedBy = "client")
-	private List<Address> address;
+	private List<Address> address = new ArrayList<>();
 	
 	public Client() {
 		
@@ -43,6 +44,17 @@ public class Client implements Serializable{
 	}
 
 	
+	
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 
 	public List<Address> getAddress() {
