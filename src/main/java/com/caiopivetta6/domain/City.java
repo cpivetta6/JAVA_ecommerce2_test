@@ -10,14 +10,26 @@ public class City implements Serializable{
 	private Integer id;
 	private String name;
 	
+	private State state;
+	
 	public City() {
 		
 	}
 
-	public City(Integer id, String name) {
+	public City(Integer id, String name, State state) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.state = state;
+	}
+	
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public Integer getId() {

@@ -1,6 +1,7 @@
 package com.caiopivetta6.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class State implements Serializable{
@@ -10,6 +11,8 @@ public class State implements Serializable{
 	private Integer id;
 	private String name;
 	
+	private List<City> cities;
+	
 	public State() {
 		
 	}
@@ -18,6 +21,16 @@ public class State implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
+	}
+	
+	
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 
 	public Integer getId() {

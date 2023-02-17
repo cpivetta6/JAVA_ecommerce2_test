@@ -11,17 +11,32 @@ public class Client implements Serializable{
 	private String name;
 	private String email;
 	
+	private String phone;
+	
+	private Address address;
 	
 	public Client() {
 		
 	}
 
 
-	public Client(Integer id, String name, String email) {
+	public Client(Integer id, String name, String email, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.phone = phone;
+	}
+
+	
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 
