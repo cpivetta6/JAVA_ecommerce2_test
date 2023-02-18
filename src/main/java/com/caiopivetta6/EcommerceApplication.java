@@ -74,14 +74,15 @@ public class EcommerceApplication implements CommandLineRunner{
 		//CATEGORY AND PRODUCT
 		
 		Category category = new Category(null, CategoryName.ELETRONIC);
-		//Product product1 = new Product(null, "Computer", "Core i7", 800.0);
-		//Product product2 = new Product(null, "Computer", "Core i5", 700.0);
+		Product product1 = new Product(null, "Computer", "Core i7", 800.0);
+		Product product2 = new Product(null, "Computer", "Core i5", 700.0);
 		
-		//category.getProducts().addAll(Arrays.asList(product1, product2));
-		//product1.getCategories().add(category);
+		category.getProducts().addAll(Arrays.asList(product1, product2));
+		product1.getCategories().add(category);
+		product2.getCategories().add(category);
 		
 		categoryRepository.save(category);
-		//productRepository.save(product1);
+		productRepository.saveAll(Arrays.asList(product1, product2));
 		
 		
 		

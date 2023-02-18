@@ -1,6 +1,7 @@
 package com.caiopivetta6.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,12 +27,16 @@ public class Category implements Serializable {
 	private CategoryName categoryName;
 	
 	@ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
-	private List<Product> products;
+	private List<Product> products = new ArrayList<>();
 
 	public Category(Integer id, CategoryName categoryName) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
+	}
+	
+	public Category() {
+		
 	}
 
 	public Integer getId() {
