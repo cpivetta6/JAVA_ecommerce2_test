@@ -1,44 +1,80 @@
 package com.caiopivetta6.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "product_tb")
 public class Product implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String description;
 	private Double price;
 	
-	private Set<OrderItem> orderItems;
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> orderItems = new HashSet<>();
 	
-	private List<Category> categories;
+	@JsonBackReference
+	@ManyToMany
+	@JoinTable(name = "PRODUCT_CATEGORY",
+			   joinColumns = @JoinColumn(name = "product_id"),
+			   inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private List<Category> categories = new ArrayList<>();
 
-	public Product(Integer id, String name, String description, Double price, List<Category> categories) {
+	public Product(Integer id, String name, String description, Double price) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.categories = categories;
 	}
 	
 	
 
-	public Set<OrderItem> getOrderItems() {
-		return orderItems;
+	@JsonIgnore
+	public List<Order> getOrders (){
+		
+		List<Order> list = new ArrayList<>();
+		
+		for(OrderItem x : orderItems) {
+			list.add(x.getOrder());
+		}
+		
+		return list;
+		
 	}
-
 
 
 	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
+	
 
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
+	}
 
 
 	public Integer getId() {

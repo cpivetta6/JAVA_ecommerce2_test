@@ -5,15 +5,33 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.caiopivetta6.domain.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-public class Payment implements Serializable {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Payment implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private Integer id;
 	private Instant moment;
 	
+	@JsonBackReference
+	@OneToOne
+	@JoinColumn(name = "order_id")
+	@MapsId
 	private Order order;
+	
 	private Integer orderStatus;
 	
 	public Payment() {

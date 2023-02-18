@@ -1,9 +1,23 @@
 package com.caiopivetta6.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class OrderItem {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_order_item")
+public class OrderItem implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+
+	@JsonIgnore
+	@EmbeddedId
 	private OrderItemPk id = new OrderItemPk();
 	
 	private Integer quantity;
@@ -13,19 +27,21 @@ public class OrderItem {
 		
 	}
 
-	public OrderItem(OrderItemPk id, Integer quantity, Double price, Product product, Order order) {
+	public OrderItem(Product product, Order order, Integer quantity, Double price) {
 		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.price = price;
 		id.setProduct(product);
 		id.setOrder(order);
+		this.quantity = quantity;
+		this.price = price;
+		
 	}
+	
 	
 	public Product getProduct() {
 		return id.getProduct();
 	}
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}

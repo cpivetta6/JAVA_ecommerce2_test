@@ -6,13 +6,27 @@ import java.util.Objects;
 
 import com.caiopivetta6.domain.enums.CategoryName;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Category_tb")
 public class Category implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private CategoryName categoryName;
 	
+	@ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	private List<Product> products;
 
 	public Category(Integer id, CategoryName categoryName) {
