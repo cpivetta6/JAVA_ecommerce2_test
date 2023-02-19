@@ -33,6 +33,7 @@ public class Product implements Serializable {
 	private String description;
 	private Double price;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> orderItems = new HashSet<>();
 	

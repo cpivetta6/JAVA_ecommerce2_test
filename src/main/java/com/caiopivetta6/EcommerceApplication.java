@@ -14,6 +14,7 @@ import com.caiopivetta6.domain.Category;
 import com.caiopivetta6.domain.City;
 import com.caiopivetta6.domain.Client;
 import com.caiopivetta6.domain.Order;
+import com.caiopivetta6.domain.OrderItem;
 import com.caiopivetta6.domain.Payment;
 import com.caiopivetta6.domain.Product;
 import com.caiopivetta6.domain.State;
@@ -23,6 +24,7 @@ import com.caiopivetta6.repositories.AddressRepository;
 import com.caiopivetta6.repositories.CategoryRepository;
 import com.caiopivetta6.repositories.CityRepository;
 import com.caiopivetta6.repositories.ClientRepository;
+import com.caiopivetta6.repositories.OrderItemRepository;
 import com.caiopivetta6.repositories.OrderRepository;
 import com.caiopivetta6.repositories.PaymentRepository;
 import com.caiopivetta6.repositories.ProductRepository;
@@ -58,6 +60,9 @@ public class EcommerceApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 
 	@Override
@@ -108,6 +113,17 @@ public class EcommerceApplication implements CommandLineRunner{
 		orderRepository.save(order);
 		paymentRepository.save(payment);
 		
+		//ORDER ITEM
+		
+		OrderItem orderItem = new OrderItem(product1, order, 2, product1.getPrice());
+		OrderItem orderItem2 = new OrderItem(product2, order, 1, product2.getPrice());
+		
+		order.getOrderItems().addAll(Arrays.asList(orderItem, orderItem2));
+		
+		product1.getOrderItems().add(orderItem);
+		product2.getOrderItems().add(orderItem2);
+		
+		orderItemRepository.saveAll(Arrays.asList(orderItem, orderItem2));
 		
 		
 		

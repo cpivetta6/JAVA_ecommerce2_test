@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,10 @@ public class Client implements Serializable{
 	@OneToMany(mappedBy = "client")
 	private List<Address> address = new ArrayList<>();
 	
+	@JsonBackReference
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+	
 	public Client() {
 		
 	}
@@ -44,7 +50,16 @@ public class Client implements Serializable{
 	}
 
 	
-	
+
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 
 
 	public String getPhone() {

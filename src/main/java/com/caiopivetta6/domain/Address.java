@@ -47,6 +47,10 @@ public class Address implements Serializable{
 		this.zcode = zcode;
 		this.city = city;
 	}
+	
+	public Address() {
+		
+	}
 
 	public Integer getId() {
 		return id;
