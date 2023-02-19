@@ -1,6 +1,7 @@
 package com.caiopivetta6;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,18 @@ import com.caiopivetta6.domain.Address;
 import com.caiopivetta6.domain.Category;
 import com.caiopivetta6.domain.City;
 import com.caiopivetta6.domain.Client;
+import com.caiopivetta6.domain.Order;
+import com.caiopivetta6.domain.Payment;
 import com.caiopivetta6.domain.Product;
 import com.caiopivetta6.domain.State;
 import com.caiopivetta6.domain.enums.CategoryName;
+import com.caiopivetta6.domain.enums.OrderStatus;
 import com.caiopivetta6.repositories.AddressRepository;
 import com.caiopivetta6.repositories.CategoryRepository;
 import com.caiopivetta6.repositories.CityRepository;
 import com.caiopivetta6.repositories.ClientRepository;
+import com.caiopivetta6.repositories.OrderRepository;
+import com.caiopivetta6.repositories.PaymentRepository;
 import com.caiopivetta6.repositories.ProductRepository;
 import com.caiopivetta6.repositories.StateRepository;
 
@@ -47,10 +53,17 @@ public class EcommerceApplication implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
 
 	@Override
 	public void run(String... args) throws Exception, ParseException {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		//STATE, CITY
 		State state = new State(null, "Veneto");
@@ -83,6 +96,17 @@ public class EcommerceApplication implements CommandLineRunner{
 		
 		categoryRepository.save(category);
 		productRepository.saveAll(Arrays.asList(product1, product2));
+		
+		//ORDER AND PAYMENT
+		Order order = new Order(null, sdf.parse("12/02/2023").toInstant());
+		order.setClient(client);
+		
+		Payment payment = new Payment(null, sdf.parse("12/01/2023").toInstant());
+		payment.setOrder(order);
+		order.setPayment(payment);
+		
+		orderRepository.save(order);
+		paymentRepository.save(payment);
 		
 		
 		

@@ -14,10 +14,11 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Payment implements Serializable {
+@Table(name = "Payment_tb")
+public class Payment implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -32,28 +33,26 @@ public abstract class Payment implements Serializable {
 	@MapsId
 	private Order order;
 	
-	private Integer orderStatus;
-	
 	public Payment() {
 		
 	}
 	
-	public Payment(Integer id, Instant moment, OrderStatus orderStatus) {
+	public Payment(Integer id, Instant moment) {
 		super();
 		this.id = id;
 		this.moment = moment;
-		this.orderStatus = orderStatus.getCod();
+		
 	}
 	
 	
-	
+	/*
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.toEnum(orderStatus);
 	}
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus.getCod();
-	}
+	}*/
 
 	public Order getOrder() {
 		return order;
